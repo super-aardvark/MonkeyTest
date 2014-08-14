@@ -4,13 +4,15 @@ Import mojo
 Class MyGame Extends App
 
 	Field tile:Image
+	
+	Global currentScene:Int[][][]
 
 	Method OnCreate()
 		
 		SetUpdateRate(60)
 		tile = LoadImage("tile.png")
-		Print("Tile Width: " + tile.Width())
-		Print("Tile Height: " + tile.Height())
+		currentScene = GenerateScene(9)
+		currentScene[0][0][0] = 1
 		
 	End
 	
@@ -56,6 +58,35 @@ Class MyGame Extends App
 		
 	End
 
+End
+
+Function DrawScene:Void(scene:Int[][][])
+	For Local i = 0 Until scene.Size()
+		For Local j = 0 To i
+		
+			
+		
+			For Local k = 0 Until scene.Size()
+				' Render each tile in stack
+				If scene[i][j][k] == 0 ' Can not have floating tiles
+					Exit
+				End
+			End
+		End 
+	End
+End
+
+Function GenerateScene:Int[][][](size:Int)
+	Local scene:Int[size][][]
+	For Local i = 0 Until size
+		scene[i] = New Int[size][]
+		For Local j = 0 Until size
+			scene[i][j] = New Int[size]
+			For Local k = 0 Until size
+				scene[i][j][k] = 0
+			End
+		End
+	End
 End
 
 Function Main()
